@@ -9,7 +9,7 @@ export default {
       backgroundColor: {
         answred: "#4BB95C",
         masked: "#1D00FF",
-        "yet-to-answer": "#FF0000",
+        "yet-to-answer": "#E87731",
         "no-filter": "#000000",
       },
     },
