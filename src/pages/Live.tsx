@@ -1,15 +1,18 @@
 import { Textarea } from "@headlessui/react";
 import { FormEvent, useEffect, useState } from "react";
 import { useChatConnectionStore } from "../store/SocketStore";
+import { useChatStore } from "../store/chatTrackStore";
 // import { io } from "socket.io-client";
 
 function Live() {
   const [liveMessage, setLiveMessage] = useState("");
   const { socketConnection } = useChatConnectionStore();
+    const roomName = useChatStore((s) => s.room);
+
   useEffect(() => {
     // if (!liveMessage) return;
 
-    return () => {
+    return () => {	
     //   socketConnection.disconnect();
     };
   }, [socketConnection]);
@@ -17,7 +20,7 @@ function Live() {
   const SentMessageToLive = (e: FormEvent) => {
     e.preventDefault();
 
-    socketConnection.emit("sent message", liveMessage);
+    socketConnection.emit("sent message", liveMessage,roomName);
   };
 
   return (
