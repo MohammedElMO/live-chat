@@ -18,7 +18,7 @@ function LiveMessages() {
     socketConnection.on("foward message", (recievedMessage: Message[]) => {
       setUserChat(recievedMessage);
     });
-  }, [socketConnection]);
+  }, [setUserChat, socketConnection]);
 
   return (
     <section className=" flex justify-center w-full flex-col gap-4">

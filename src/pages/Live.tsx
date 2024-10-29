@@ -1,26 +1,23 @@
 import { Textarea } from "@headlessui/react";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { useChatConnectionStore } from "../store/SocketStore";
 import { useChatStore } from "../store/chatTrackStore";
-// import { io } from "socket.io-client";
 
 function Live() {
   const [liveMessage, setLiveMessage] = useState("");
   const { socketConnection } = useChatConnectionStore();
   const roomName = useChatStore((s) => s.room);
-
-  useEffect(() => {
-    // if (!liveMessage) return;
-
-    return () => {
-      //   socketConnection.disconnect();
-    };
-  }, [socketConnection]);
+  const messageInput = useRef<HTMLTextAreaElement>(null);
 
   const SentMessageToLive = (e: FormEvent) => {
     e.preventDefault();
-
+    if (!liveMessage) return;
+	
     socketConnection.emit("sent message", liveMessage, roomName);
+    if (messageInput.current) {
+      messageInput.current.value = "";
+      setLiveMessage("");
+    }
   };
 
   return (
@@ -37,6 +34,7 @@ function Live() {
         <div className="relative max-w-md px-4 font-roboto">
           <form onSubmit={SentMessageToLive}>
             <Textarea
+              ref={messageInput}
               spellCheck="false"
               value={liveMessage}
               placeholder="Posez votre question .."
