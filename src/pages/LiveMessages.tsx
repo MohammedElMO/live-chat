@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import ChatRoomsSelector from "../components/ChatRoomsSelector";
 import MessageFilter from "../components/MessageFilter";
-import { useChatStore } from "../store/chatTrackStore";
+import { Message, useChatStore } from "../store/chatTrackStore";
 import { useChatConnectionStore } from "../store/SocketStore";
 import DisLike from "../svgs/DisLike";
 import Done from "../svgs/Done";
@@ -15,7 +15,7 @@ function LiveMessages() {
   const setUserChat = useChatStore((s) => s.setUserChat);
 
   useEffect(() => {
-    socketConnection.on("foward message", (recievedMessage: string) => {
+    socketConnection.on("foward message", (recievedMessage: Message[]) => {
       setUserChat(recievedMessage);
     });
   }, [socketConnection]);
@@ -47,7 +47,11 @@ function LiveMessages() {
           icon={<DisLike isActive={currentFilter === "yet-to-answer"} />}
         />
       </div>
-	  {!userChat.length && <div className="mx-20 font-medium font-roboto">No chat Available Now</div>}
+      {!userChat.length && (
+        <div className="mx-20 font-medium font-roboto">
+          No chat Available Now
+        </div>
+      )}
       <section className="flex flex-col  gap-4 mx-20 ">
         {userChat?.map((chat, idx) => (
           <ChatBoxDisplayer

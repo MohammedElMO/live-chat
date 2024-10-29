@@ -7,20 +7,20 @@ import { useChatStore } from "../store/chatTrackStore";
 function Live() {
   const [liveMessage, setLiveMessage] = useState("");
   const { socketConnection } = useChatConnectionStore();
-    const roomName = useChatStore((s) => s.room);
+  const roomName = useChatStore((s) => s.room);
 
   useEffect(() => {
     // if (!liveMessage) return;
 
-    return () => {	
-    //   socketConnection.disconnect();
+    return () => {
+      //   socketConnection.disconnect();
     };
   }, [socketConnection]);
 
   const SentMessageToLive = (e: FormEvent) => {
     e.preventDefault();
 
-    socketConnection.emit("sent message", liveMessage,roomName);
+    socketConnection.emit("sent message", liveMessage, roomName);
   };
 
   return (
@@ -35,8 +35,9 @@ function Live() {
         </div>
 
         <div className="relative max-w-md px-4 font-roboto">
-          <form  onSubmit={SentMessageToLive}>
+          <form onSubmit={SentMessageToLive}>
             <Textarea
+              spellCheck="false"
               value={liveMessage}
               placeholder="Posez votre question .."
               onChange={(e) => setLiveMessage(e.target.value)}
