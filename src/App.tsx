@@ -9,8 +9,8 @@ function App() {
   console.log("roome is ", room);
   return (
     <div className="h-screen w-screen bg-[#F8F8F8]">
-      <Live />
-      <LiveMessages />
+		<div>this is Home</div>
+      {/* <LiveMessages /> */}
     </div>
   );
 }

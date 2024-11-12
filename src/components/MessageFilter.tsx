@@ -24,10 +24,10 @@ function MessageFilter({ filterName, icon, activeFilter }: Props) {
   return (
     <div
       onClick={() => setCurrentFilter(activeFilter)}
-      className={`flex ${filterStyle}  items-center font-semibold text-lg shadow-lg font-roboto gap-2 rounded-lg p-3 cursor-pointer px-5  `}
+      className={`flex ${filterStyle}  items-center font-semibold  shadow-lg font-roboto gap-2 rounded-lg px-5  py-3 cursor-pointer  `}
     >
       {icon}
-      <span>{filterName}</span>
+      <span className="text-base text-nowrap">{filterName}</span>
     </div>
   );
 }
